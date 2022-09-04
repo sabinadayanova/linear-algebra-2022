@@ -1,0 +1,9 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is 'demo.blg'
+[49] biber-darwin:340> INFO - === Sun Sep  4, 2022, 23:14:04
+[60] Biber.pm:418> INFO - Reading 'demo.bcf'
+[125] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
+[137] bbl.pm:654> INFO - Writing 'demo.bbl' with encoding 'UTF-8'
+[137] bbl.pm:757> INFO - Output to demo.bbl
+[137] Biber.pm:130> WARN - The file 'demo.bcf' does not contain any citations!
+[137] Biber.pm:132> INFO - WARNINGS: 1
