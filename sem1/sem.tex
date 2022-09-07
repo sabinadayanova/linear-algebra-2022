@@ -1,0 +1,365 @@
+\documentclass[12pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} %  рифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+\newtheorem{theor}{Теорема}
+\newtheorem{defn}{Определение}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+\newenvironment{amatrix}[2]{%
+  \left(\begin{array}{@{}*{#1}{c}|{}*{#2}{c}}
+}{%
+  \end{array}\right)
+}
+
+%% Заголовок
+\title{{\normalsize Линейная алгебра и геометрия 2022} \\ \vspace{0.5em}  Семинар 1}
+\author{ \rule{15cm}{0.4pt}}
+
+\date{}
+\begin{document}
+	\maketitle
+	\subsection*{Краткое содержание}
+    Обсудили сложение матриц. Доказали коммутативность этой операции. Упомянули транспонирование матриц.
+    
+    Обсудили умножение матриц. Решили простой пример на понимание операций -- вычислили значение $AB^T + 3C$, где
+    \[
+    A = \begin{pmatrix}
+        2 & 1 & 0 \\
+        0 & 2 & -1 \\
+    \end{pmatrix}, \;
+    B = \begin{pmatrix}
+        1 & 0 & 2 \\
+        -3 & 2 & 0 \\
+    \end{pmatrix}, \;
+    C = \begin{pmatrix}
+        0 & 1 \\
+        1 & 2 \\
+    \end{pmatrix}
+    \]
+    Перемножили матрицы 
+    $\begin{pmatrix}
+        0 & 1 \\
+        0 & 0 \\
+    \end{pmatrix}$ 
+    и
+    $\begin{pmatrix}
+        a & b \\
+        c & d \\
+    \end{pmatrix}$
+    в разном порядке и убедились, что умножение матриц не коммутативно.
+
+    Определили натуральную степень матрицы, а также нулевую степень: $A^0 = E$. Методом математической индукции доказали, что 
+    $\begin{pmatrix}
+        1 & 1 \\
+        0 & 1 \\
+    \end{pmatrix}^n = 
+    \begin{pmatrix}
+        1 & n \\
+        0 & 1 \\
+    \end{pmatrix}.$
+    
+    Обсудили быстрое возведение матрицы в степень. Поняли, что оно работает абсолютно также, как и с действительными числами.
+    Игрушечный пример:
+
+    $A^4 = A \cdot A \cdot A \cdot A \to$  3 операции (3 раза умножили).
+
+    $A^4 = A \cdot A \cdot A \cdot A = A^2 \cdot A^2 \to$ 2 операции (один раз возвели в степень, во второй раз перемножили результат друг на друга).
+
+    $A^9 = A^8 \cdot A = A^4 \cdot A^4 \cdot A \to$ 4 операции
+    (2 операции на возведение $A$ в 4ую степень, 3-я на перемножение $A^4$ на $A^4$, 4-ая на умножение на последнюю $A$)
+
+    Суть: переиспользуем уже подсчитанные результаты, перемножаем уже посчитанные степени матрицы.
+    Обычно это делается по основанию двойки.
+
+    Посмотрели на результат умножения следующих матриц и получили:
+    \[
+    \begin{pmatrix}
+        \lambda_1 & 0 & \dots & 0 \\
+        0 & \lambda_2 & \dots & 0 \\
+        \dots & \dots & \dots & \dots \\
+        0 & 0 & \dots & \lambda_n
+    \end{pmatrix}
+    \cdot 
+    \begin{pmatrix}
+        \mu_1 & 0 & \dots & 0 \\
+        0 & \mu_2 & \dots & 0 \\
+        \dots & \dots & \dots & \dots \\
+        0 & 0 & \dots & \mu_n
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \lambda_1 \mu_1 & 0 & \dots & 0 \\
+        0 & \lambda_2 \mu_2 & \dots & 0 \\
+        \dots & \dots & \dots & \dots \\
+        0 & 0 & \dots & \lambda_n \mu_n
+    \end{pmatrix}
+    \]
+    Сделали вывод, что умножение диагональных матриц дает нам тоже диагональную матрицу.
+
+    Посмотрели на результат умножения следующих матриц и получили:
+    \[
+    \begin{pmatrix}
+        a_{11} & a_{12} & \dots & a_{1n} \\
+        a_{21} & a_{22} & \dots & a_{2n} \\
+        \dots & \dots & \dots & \dots \\
+        a_{m1} & a_{m2} & \dots & a_{mn} \\
+    \end{pmatrix}    
+    \cdot
+    \begin{pmatrix}
+        \lambda_1 & 0 & \dots & 0 \\
+        0 & \lambda_2 & \dots & 0 \\
+        \dots & \dots & \dots & \dots \\
+        0 & 0 & \dots & \lambda_n
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \lambda_1 a_{11} & \lambda_2 a_{12} & \dots & \lambda_n a_{1n} \\
+        \lambda_1 a_{21} & \lambda_2 a_{22} & \dots & \lambda_n a_{2n} \\
+        \dots & \dots & \dots & \dots \\
+        \lambda_1 a_{m1} &\lambda_2  a_{m2} & \dots & \lambda_n a_{mn} \\
+    \end{pmatrix} 
+    \]
+    То есть, используя нотацию $A^i$ -- i-ый столбец матрицы $A$, получаем:
+    \[
+    \begin{pmatrix}
+        A^1 & A^2 & \dots & A^n\\
+    \end{pmatrix}  
+    \cdot
+    \begin{pmatrix}
+        \lambda_1 & 0 & \dots & 0 \\
+        0 & \lambda_2 & \dots & 0 \\
+        \dots & \dots & \dots & \dots \\
+        0 & 0 & \dots & \lambda_n
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \lambda_1 A^1 & \lambda_2 A^2 & \dots & \lambda_n A^n\\
+    \end{pmatrix} 
+    \]
+    \heart
+
+    \subsection*{Домашнее задание к семинару 2 (13.09.2022)}
+    Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+    \begin{enumerate}
+        \item Пусть $A, B$ -- произвольные матрицы одинакового размера и $\lambda, \mu \in \R$.
+        Докажите (расписав подробно), что $\lambda (A+B) = \lambda A + \lambda B$ и $\lambda (\mu A) = (\lambda \mu) A$.
+        \item K17.1(г), К17.2(б)
+        \item Найдите все 2х2-матрицы $B$, коммутирующие с матрицей
+        $A=\begin{pmatrix}
+            2 & -1 \\
+            1 & 0 \\
+        \end{pmatrix}$, то есть удовлетворяющие условию $AB = BA$.
+        \item Найти, чему равно выражение (расписать подробно):
+        \[
+        \begin{pmatrix}
+            \lambda_1 & 0 & \dots & 0 \\
+            0 & \lambda_2 & \dots & 0 \\
+            \dots & \dots & \dots & \dots \\
+            0 & 0 & \dots & \lambda_n
+        \end{pmatrix}  
+        \cdot 
+        \begin{pmatrix}
+            A_1 \\
+            A_2 \\
+            \dots \\
+            A_n
+        \end{pmatrix},
+        \] 
+        где $A_i$ -- i-ая строчка матрицы $A \in Mat_{n\times m}(\R)$.
+        Другими словами, правая матрица в выражении -- это матрица $A$, записанная в терминах строчек. Найденный ответ надо записать тоже в таких же терминах.
+        \item П802
+        \item П803
+        \item П805
+        \item К17.7
+         
+        
+    \end{enumerate}
+    
+\end{document}
