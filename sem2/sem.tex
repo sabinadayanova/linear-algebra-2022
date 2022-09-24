@@ -1,0 +1,191 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+	right=12mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+  \left(\begin{array}{@{}*{#1}{c}|{}*{#2}{c}}
+}{%
+  \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 2 (20.09.2022)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Поговорили про способы упрощения выражений с матрицами со степенями. Так, $A^m \cdot A^n = A^{m+n}$
+и  $\left(A^m\right)^n = A^{m\cdot n}$.
+
+Определили такую операцию как многочлен от матрицы. Если $f(t) = a_n t^n + \dots + a_1t + a_0 \in \R,$ 
+
+$X \in Mat_{m}(\R)$, то 
+$f(X) = a_n X^n + \dots + a_1X + a_0E \in Mat_m(\R)$.
+
+Поговорили про последовательность Фибоначчи, ее рекурсивную запись в обычном и матричном формате. 
+Матричный формат:
+\[
+    \begin{pmatrix}
+        a_1 \\ a_0
+    \end{pmatrix} =
+    \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix} , 
+    \begin{pmatrix}
+        a_{n+1}\\ a_n
+    \end{pmatrix} =
+    \begin{pmatrix}
+        1 & 1 \\ 1 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+        a_n\\ a_{n-1}
+    \end{pmatrix}, 
+    \begin{pmatrix}
+        a_{n+1}\\ a_n
+    \end{pmatrix} =
+    \begin{pmatrix}
+        1 & 1 \\ 1 & 0
+    \end{pmatrix}^n
+    \begin{pmatrix}
+        1\\ 0
+    \end{pmatrix}
+\]
+Разобрав П808 и упомянув понятие обратной матрицы, выяснили, что задача возведения матрицы $A$
+в произвольную степень сильно упрощается, если известно разложение вида $A = BCB^{-1}$, где $C$ --
+диагональная матрица. В этом случае получается $A^k = BC^k B^{-1}$. Задачу нахождения такого разложения
+(а также вопрос его существования) отложили до будущих времен. Для матрицы 
+$\begin{pmatrix}
+    1 & 1 \\ 1 & 0
+\end{pmatrix}$, 
+про которую мы говорили выше, это разложение существует и выглядит как
+\[
+    \begin{pmatrix}
+        \frac{1-\sqrt{5}}{2} & \frac{1+\sqrt{5}}{2}\\ 1 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        \frac{1-\sqrt{5}}{2} & 0 \\ 0 & \frac{1+\sqrt{5}}{2}
+    \end{pmatrix}
+    \begin{pmatrix}
+        -\frac{1}{\sqrt{5}} & \frac{1+\sqrt{5}}{2\sqrt{5}}\\ 
+        \frac{1}{\sqrt{5}} & -\frac{1-\sqrt{5}}{2\sqrt{5}}
+    \end{pmatrix}    
+\]
+Проговорили свойства основных операций над матрицами, обсудили, как оптимально посчитать матричное
+выражение $2 A A^T - 3AB + 4 B^T A^T - 6B^TB$. Также обсудили, как решать матричное уравнение 
+$XX^T - XA^T - AX^T + AA^T=0$, в котором $X$ -- неизвестная матрица заданного порядка, а 
+$A$ -- известная матрциа с коэффициентами из $\R$.
+
+Упомянули понятие следа квадратной матрицы, а также его основное свойство $\tr{AB} = \tr{BA}$.
+Обсудили, что если $A, B$ -- квадратные матрицы одного порядка и $B$ обратима, то $\tr{BAB^{-1}} == \tr A$.
+Вывели отсюда, что матричное уравнение $
+B 
+\begin{pmatrix}
+    -1 & 1 \\ 1 & 0
+\end{pmatrix}
+B^{-1}= 
+\begin{pmatrix}
+    1 & 0 \\ 0 & 2
+\end{pmatrix}$ корней не имеет.
+Проговорили, как сдвигать три матрицы под следом. Поняли, что по сути можно брать только матрицы с краю 
+и перемещать их в другой край (то есть, по циклу). Так, $\tr{ABC} == \tr{BCA} == \tr{CAB}$. Выяснили, что 
+равенство $\tr{ABC} = \tr{ACB}$ не верно для всех матриц. Построение примера предложено в качестве
+домашнего задания.
+
+В конце поупражнялись со свойствами следа, упростив выражение \\
+$\tr{[(6AB^T-3BA^T)^TC + C(2AB^T-4BA^T)]}$, 
+где $A, B, C \in M_n, \quad C=C^T$. 
+
+\heart
+
+\textbf{Домашнее задание к семинару 3 (23.09.2022). Дедлайн 27.09.2022}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+\begin{enumerate}
+    \item K17.5
+    \item П829
+    \item П809
+    \item П815
+    \item П832
+    \item Приведите пример трех квадратных (2x2)-матриц $A, B, C$, для которых $\tr{ABC} \neq \tr{ACB}$.
+    \item Квадратная матрица $A$ называется \textit{верхнетреугольной}, если $a_{ij} = 0$ при всех $i > j$, то есть все ее элементы ниже главной диагонали равны нулю. Докажите, что произведение двух верхнетреугольных матриц снова будет верхнетреугольной матрицей.
+    \item Назовем квадратную матрицу побочно-диагональной, если все ее элементы вне побочной диагонали равны нулю. Пусть $A, B$ -- две побочно-диагональные матрицы, причем у матрицы $A$ (соответственно $B$) на побочной диагонали стоят элементы $\lambda_1, \lambda_2, \dots, \lambda_n$ (соответственно $\mu_1, \mu_2, \dots, \mu_n$), если считать от правого верхнего угла к левому нижнему. Найдите произведения $AB$ и $BA$ и определите условия, при которых матрицы $A$ и $B$ коммутируют (то есть $AB=BA$).
+\end{enumerate}
+\heart
+    
+\end{document}
