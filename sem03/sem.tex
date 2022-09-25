@@ -1,0 +1,171 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+	right=12mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 3 (23.09.2022)}
+\end{center}
+
+\textbf{Краткое содержание}
+Повторили определение системы линейных уравнений (СЛУ) и разобрали число решений СЛУ в самом простом случае. Так,
+
+$0 \cdot x = 1 \implies $ нет решений. \\
+$1 \cdot x = 1 \implies $ 1 решение. \\
+$0 \cdot x = 0 \implies \infty $ решений.
+
+Решили СЛУ
+$\begin{amatrix}{4}{1}
+   1 & 1 & 2 & 3 & 4\\
+   1 & 1 & -1 & 2 & 1
+\end{amatrix}$. 
+Привели ее к ул. ступ. виду 
+$\begin{amatrix}{4}{1}
+    1 & 1 & 0 & \nicefrac{7}{3} & 4\\
+    0 & 0 & 1 & \nicefrac{1}{3} & 1
+ \end{amatrix}$. Столбцы со ступеньками соответствуют главным переменным. Если переписывать это на лад уравнения, получаем
+
+ \[
+    \begin{cases}
+        x_1 + x_2 + \frac{7}{3} x_4 = 4, \\
+        x_3 + \frac{1}{3}x_4 = 1
+    \end{cases}  
+    \iff
+    \begin{cases}
+        x_1 = 4 - x_2 - \frac{7}{3} x_4, \\
+        x_3 = 1 - \frac{1}{3}x_4
+    \end{cases} 
+ \]
+ Можно заметить, что в каждом уравнении главная переменная только одна -- $x_1$ в первом, $x_3$ во втором. И каждая главная переменная выражается
+ через свободные переменные и свободные члены. Решение СЛУ можно записать в трех видах
+ \begin{itemize}
+    \item $x_2 = a \in \R, x_4 = b\in \R$
+    \[
+       \left(x_1, x_2, x_3, x_4\right) = \left(4 - a - \tfrac{7}{3} b, a, 1 - \tfrac{1}{3}b, b\right)
+    \]
+    ite
+ \end{itemize}
+
+
+\begin{equation}
+    \begin{pmatrix} A \mid b \end{pmatrix} = \begin{amatrix}{4}{1}
+    a_{11} & a_{12} & \dots & a_{1n} & b_1 \\
+    a_{21} & a_{22} & \dots & a_{2n} & b_2 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{m1} & a_{m2} & \dots & a_{mn} & b_m
+    \end{amatrix}
+\end{equation}
+
+TBD
+
+
+Разобрали элементарные преобразования строк матрицы и приведение матрицы к ступенчатому и улучшенному ступенчатому виду.
+
+\heart
+
+\textbf{Домашнее задание к семинару 4 (4.10.2022)}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+
+\textbf{В заданиях 1. -- 6. требуется решить СЛУ методом Гаусса.}
+\begin{enumerate}
+    \item П76
+    \item П83
+    \item П85
+    \item П567
+    \item П578
+    \item П580
+    \item Найдите число решений СЛУ из номера П89 в зависимости от значений параметров.
+    \item П715
+    \item П718
+    \item Докажите, что элементарное преобразование второго типа можно выразить через 
+    преобразования первого и третьего типов.
+    \item По мотивам обсуждения на семинаре про целочисленные вычисления в методе Гаусса.
+    Докажите, что всякую целочисленную матрицу можно привести к ступенчатому виду целочисленными
+    элементарными преобразованиями строк только первого типа.
+    \end{enumerate}
+\heart
+    
+\end{document}
