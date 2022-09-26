@@ -96,7 +96,8 @@ $0 \cdot x = 1 \implies $ нет решений. \\
 $1 \cdot x = 1 \implies $ 1 решение. \\
 $0 \cdot x = 0 \implies \infty $ решений.
 
-Решили СЛУ
+
+Разобрали элементарные преобразования строк матрицы и приведение матрицы к ступенчатому и улучшенному ступенчатому виду. Решили СЛУ
 $\begin{amatrix}{4}{1}
    1 & 1 & 2 & 3 & 4\\
    1 & 1 & -1 & 2 & 1
@@ -121,31 +122,134 @@ $\begin{amatrix}{4}{1}
  Можно заметить, что в каждом уравнении главная переменная только одна -- $x_1$ в первом, $x_3$ во втором. И каждая главная переменная выражается
  через свободные переменные и свободные члены. Решение СЛУ можно записать в трех видах
  \begin{itemize}
-    \item $x_2 = a \in \R, x_4 = b\in \R$
-    \[
-       \left(x_1, x_2, x_3, x_4\right) = \left(4 - a - \tfrac{7}{3} b, a, 1 - \tfrac{1}{3}b, b\right)
-    \]
-    ite
+    \item $x_2 = a \in \R, x_4 = b\in \R, \quad
+       \left(x_1, x_2, x_3, x_4\right) = \left(4 - a - \tfrac{7}{3} b, a, 1 - \tfrac{1}{3}b, b\right)$
+    \item 
+    $
+        \begin{pmatrix}
+        x_1 \\ x_3
+        \end{pmatrix} = 
+        \begin{pmatrix}
+        4 \\ 1
+        \end{pmatrix} - 
+        \begin{pmatrix}
+        1 \\ 0
+        \end{pmatrix}x_2 - 
+        \begin{pmatrix}
+        \nicefrac{7}{3} \\ \nicefrac{1}{3}
+        \end{pmatrix}x_4
+    $
+    \item 
+    $
+    \begin{pmatrix}
+        x_1 \\ x_2 \\ x_3 \\ x_4
+    \end{pmatrix} = 
+    \begin{pmatrix}
+        4 \\ 0 \\ 1 \\ 0
+    \end{pmatrix} - 
+    \begin{pmatrix}
+        1 \\ 1 \\ 0 \\ 0
+    \end{pmatrix}x_2 - 
+    \begin{pmatrix}
+        \nicefrac{7}{3} \\ 0 \\ \nicefrac{1}{3} \\ 1
+    \end{pmatrix}x_4
+    $
  \end{itemize}
+ 
+Поговорили про целочисленные матрицы и как упрощать себе жизнь и оставаться в целых числах, приводя их к ул. ступ. виду. 
 
+Поговорили про то, как в общем случае понять, сколько решений имеет СЛУ. После этого решили номер П88, чтобы закрепить усвоенное. Не успели дорешать, полное решение номера здесь:
+$\begin{cases}
+    ax + 4y + z = 0,\\
+    2y + 3z - 1 = 0,\\
+    3x - bz + 2 = 0.
+\end{cases}
+\sim 
+\begin{amatrix}{3}{1}
+a & 4 & 1 & 0\\
+0 & 2 & 3 & 1 \\
+3 & 0 & -b & -2 
+\end{amatrix}
+$
 
-\begin{equation}
-    \begin{pmatrix} A \mid b \end{pmatrix} = \begin{amatrix}{4}{1}
-    a_{11} & a_{12} & \dots & a_{1n} & b_1 \\
-    a_{21} & a_{22} & \dots & a_{2n} & b_2 \\
-    \vdots & \vdots & \ddots & \vdots \\
-    a_{m1} & a_{m2} & \dots & a_{mn} & b_m
-    \end{amatrix}
-\end{equation}
+Хочу привести матрицу с ступенчатому виду. Для этого надо избавиться от $a$ или от тройки в первом столбце. В любом случае придется делить на $a$. Рассмотрим случай, когда $a=0$:
 
-TBD
+1. $a=0$
+\[
+\begin{amatrix}{3}{1}
+0 & 4 & 1 & 0\\
+0 & 2 & 3 & 1 \\
+3 & 0 & -b & -2 
+\end{amatrix} \sim
+\begin{amatrix}{3}{1}
+0 & 0 & -5 & -2\\
+0 & 2 & 3 & 1 \\
+3 & 0 & -b & -2 
+\end{amatrix} \sim
+\begin{amatrix}{3}{1}
+3 & 0 & -b & -2 \\
+0 & 2 & 3 & 1 \\
+0 & 0 & -5 & -2\\
+\end{amatrix}
+\]
+Привели к  ступенчатому виду, где ступеньки есть на каждом столбце. Значит, все переменные, главные, свободных переменных нет. в конечном счете, когда мы приведем матрицу к ул. ступ. виду, все переменные будут однозначно выражаться через свободные члены. Значит при $a=0, b\in R$ решение системы одно.
 
+2. $a \neq 0$
+\[
+\begin{amatrix}{3}{1}
+a & 4 & 1 & 0\\
+0 & 2 & 3 & 1 \\
+3 & 0 & -b & -2 
+\end{amatrix} \sim
+\begin{amatrix}{3}{1}
+1 & \nicefrac{4}{a} & \nicefrac{1}{a} & 0\\
+0 & 2 & 3 & 1 \\
+3 & 0 & -b & -2 
+\end{amatrix} \sim
+\begin{amatrix}{3}{1}
+1 & \nicefrac{4}{a} & \nicefrac{1}{a} & 0\\
+0 & 2 & 3 & 1 \\
+0 & -\nicefrac{12}{a} & -b - \nicefrac{3}{a} & -2 
+\end{amatrix} \sim
+\]
+\[
+\sim
+\begin{amatrix}{3}{1}
+1 & \nicefrac{4}{a} & \nicefrac{1}{a} & 0\\
+0 & 1 & \nicefrac{3}{2} & \nicefrac{1}{2} \\
+0 & -\nicefrac{12}{a} & -b - \nicefrac{3}{a} & -2 
+\end{amatrix} \sim
+\begin{amatrix}{3}{1}
+1 & \nicefrac{4}{a} & \nicefrac{1}{a} & 0\\
+0 & 1 & \nicefrac{3}{2} & \nicefrac{1}{2} \\
+0 & 0 & -b - \nicefrac{3}{a} + \nicefrac{3}{2}\cdot \nicefrac{12}{a}& -2 + \nicefrac{1}{2}\cdot \nicefrac{12}{a} 
+\end{amatrix} \sim
+\]
+\[
+\sim \begin{amatrix}{3}{1}
+1 & \nicefrac{4}{a} & \nicefrac{1}{a} & 0\\
+0 & 1 & \nicefrac{3}{2} & \nicefrac{1}{2} \\
+0 & 0 & -b - \nicefrac{15}{a} & -2 + \nicefrac{6}{a} 
+\end{amatrix} 
+\]
+Число решений СЛУ зависит напрямую от двух чисел внизу в последней строчке в расширенной матрице.
+Обозначим $-b - \nicefrac{15}{a}$ за $M$, $-2 + \nicefrac{6}{a} $ за $N$. Надо понять, что
+\begin{enumerate}
+    \item Если $M=0, N=0$, то СЛУ будет иметь бесконечное число решений.
+    \item Если $M=0, N \neq 0$, то СЛУ решений иметь не будет.
+    \item Если $M \neq 0, N = 0$, то СЛУ будет иметь одно решение.
+\end{enumerate}
 
-Разобрали элементарные преобразования строк матрицы и приведение матрицы к ступенчатому и улучшенному ступенчатому виду.
+Можем решить простую систему уравнений на переменные $a, b$ и понять, что
+\begin{enumerate}
+    \item $M=0, N=0 \iff a = 3, b = 5$
+    \item $M=0, N \neq 0 \iff a \in (-\infty, 3) \cup (3, +\infty), b = \tfrac{15}{a}$
+    \item $M \neq 0, N = 0 \iff$ все остальные пары $a, b$.
+\end{enumerate}
 
 \heart
 
-\textbf{Домашнее задание к семинару 4 (4.10.2022)}
+\textbf{Домашнее задание к семинару 4. Дедлайн 3.10.2022}
 
 Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
 
