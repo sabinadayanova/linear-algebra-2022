@@ -1,0 +1,173 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+\setcounter{MaxMatrixCols}{20}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 5 (4.10.2022)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Новая тема -- перестановки. Обсудили, как представлять перестановки визуально.
+Обсудили инверсии, знак и чётность, произведение перестановок, тождественную перестановку и обратную перестановку.
+Обсудили, как решать уравнения вида $\sigma x=\rho, x\sigma=\rho, \sigma x \tau=\rho$ относительно неизвестной перестановки~$x$.
+(В этих случаях искомая перестановка выражается формулами $x = \sigma^{-1}\rho, x = \rho\sigma^{-1}, x=\sigma^{-1}\rho\tau^{-1}$ соответственно.)
+На доске перемножили две перестановки $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 4 & 3 & 5 & 1 & 2 \end{pmatrix}, \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 3& 4 & 5 & 1 & 2  \end{pmatrix}$
+в обоих порядках, для первой нашли обратную.
+
+Проговорили, что такое циклы.
+На примере перестановки
+\[
+\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 5 & 8 & 9 & 2 & 1 & 4 & 3 & 6 & 7 \end{pmatrix}
+\]
+обсудили разложение перестановок в произведение \textbf{независимых} циклов. Поскольку циклы в таком разложении коммутируют, $m$-я степень перестановки есть просто произведение $m$-х степеней всех циклов, и тогда задача возведения произвольной перестановки в степень сводится к той же задаче для циклов.
+Если цикл имеет длину~$k$, то его $k$-я степень есть $id$ (тождественная перестановка), поэтому для вычисления его $m$-й степени достаточно возвести этот цикл в степень $m \ \mathrm{mod}\, k$.
+Важно помнить, что нулевая степень любой перестановки есть~$id$.
+Нашли в явном виде 100-ю, 101-ю и 102-ю степени указанной выше перестановки.
+
+\textbf{Важное дополнение к семинару!!!}
+
+Изначально вычисление знака перестановки определялось, как $sgn(\sigma) =(-1)^{\text{\#инверсий}}$. Когда перестановки большие, число инверсий искать тяжелее -- нужно перебирать много ($ \frac{n(n-1)}{2}$) пар элементов. При разложении перестановки на независимые циклы, подсчет знака сильно упрощается. Знак определеятся как $sgn(\sigma) = (-1)^{dec(\sigma)}$, где $dec(\sigma)$ -- декремент подстановки. Он равен $n - \text{\#циклов} - \text{\#неподвижных точек}$. Если вы разложили перестановку на независимые циклы, декремент и, следовательно, знак считать очень легко.
+
+Пример: перестановка $\sigma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 4 & 1 & 2 & 3 & 7 & 5 & 6 & 8 & 9 \end{pmatrix}$ раскладывается на независимые циклы \\
+$(1432)(576)(8)(9)$. 8 и 9 -- это неподвижные точки, так как они все время переходят сами в себя. А цикла в этой перестановке всего два -- (1432) и (576). Таким образом, $dec(\sigma) = 9 - 2 - 2 = 5$. Значит, $sgn(\sigma) = (-1)^5 = -1 \implies \sigma$ -- нечетная.
+
+\heart
+
+\textbf{Домашнее задание к семинару 6. Дедлайн 12.10.2022}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+
+\begin{enumerate}
+    \item К3.1(б,в)
+
+    \item К3.2(а--г), К3.3(а,б)
+    
+    \item Вычислить число инверсий в следующих перестановках:\\
+    1) $\begin{pmatrix} 
+    1 & 2 & 3 & 4 & \dots & n & n+1 & n+2 & n+3 & n+4 &  \dots & 2n \\
+    1 & 3 & 5 & 7 & \dots & 2n-1 & 2 & 4 & 6 & 8 & \dots & 2n\end{pmatrix}$\\
+    2) $\begin{pmatrix}
+    1 & 2  & \dots & n-k+1 & n-k+2 & n-k+3& \dots & n\\
+    k & k+1 & \dots & n & 1 & 2 & \dots & k-1
+    \end{pmatrix}$.
+    
+    \item К3.6(а--г)
+
+    \item Решите следующее уравнение относительно неизвестной перестановки $X$:
+    \[
+    \left(
+    \begin{array}{cccccccc}
+    1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+    6 & 7 & 4 & 2 & 1 & 3 & 5
+    \end {array}
+    \right)
+    \cdot X \cdot
+    \left(
+    \begin{array}{cccccccc}
+    1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+    3 & 4 & 6 & 7 & 2 & 1 & 5
+    \end{array}
+    \right)
+    =
+    \left(
+    \begin{array}{cccccccc}
+    1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+    7 & 1 & 4 & 6 & 3 & 5 & 2
+    \end {array}
+    \right).
+    \]
+    
+    \item Вычислите $\sigma^{77}$, $\sigma^{90}$, $\sigma^{119}$, $\sigma^{148}$, если $\sigma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\ 5 & 9 & 11 & 3 & 8 & 10 & 2 & 12 & 7 & 4 & 6 & 1 \end{pmatrix}$.
+    
+    \item На сколько может измениться число инверсий в перестановке $\sigma = \begin{pmatrix} 1 & 2 & 3 & \ldots & n \\ \sigma(1) & \sigma(2) & \sigma(3) & \ldots & \sigma(n) \end{pmatrix}$, если в её нижней строке поменять местами два соседних элемента? А как при этом изменится её знак?
+
+    \item Пусть $\rho$~--- перестановка, полученная из перестановки $\sigma$ предыдущей задачи путём перестановки элементов $\sigma(i)$ и $\sigma(j)$ в нижней строке. Опишите перестановку $\sigma^{-1} \rho$.
+\end{enumerate}
+\heart
+    
+\end{document}
