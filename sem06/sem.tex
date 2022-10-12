@@ -1,0 +1,154 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+\setcounter{MaxMatrixCols}{20}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 6 (11.10.2022)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Сначала обсудили разложение цикла в произведение транспозиций и сделали вывод о его чётности: если цикл имеет длину $k$, то его знак равен $(-1)^{k-1}$.
+Применили это к вычислению знака перестановки, разложенной в произведение независимых циклов.
+В результате получили правило определения знака перестановки по декременту: $sgn(\sigma) = (-1)^{dec(\sigma)}$.
+
+Затем обсудили разложение произвольной перестановки в произведение транспозиций, а также произведение элементарных транспозиций.
+
+
+Новая тема -- определители.
+Выписали общую формулу определителя квадратной матрицы порядка $n$. Расписали явную формулу определителя для матриц порядка 2 и 3.
+Разобрали номера П188 и П189.
+
+Упомянули, с каким знаком входит в определитель произведение элементов главной диагонали, после чего разобрали аналогичный вопрос для побочной диагонали. 
+Запутались в побочной диагонали, оставили номер для домашнего задания.
+
+Разобрали номер П200 (не до конца).
+
+
+\heart
+
+\textbf{Домашнее задание к семинару 7. Дедлайн 18.10.2022}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+
+\begin{enumerate}
+    \item П157, П158, П159
+    \item П1, П2, П4, П6, П9
+    \item П44, П47, П58
+    \item П190, П191
+    \item П197, П198
+    \item Вычислите, с каким знаком входит в определитель произведение элементов побочной диагонали 
+    матрицы порядка $n$.
+    \item Найдите коэффициент при $x^5$ в выражении определителя
+    \[
+    \begin{vmatrix}
+    2 & -3 & x & 4 & -5\\
+    3 & x & -1 & -2 & 4\\
+    1 & 3 & 1 & x & 1\\
+    -3 & x^2 & -1 & 1 & x\\
+    x & -2 & 4 & 5 & -2
+    \end{vmatrix}.
+    \]
+
+    \item Найдите коэффициент при $x^4$ в выражении определителя
+    \[
+    \begin{vmatrix}
+    1 & 3 & x & 2 & 2\\
+    x & 2 & 1 & 4 & 5\\
+    x & 1 & x & 5 & x\\
+    3 & x & 1 & 2 & 3\\
+    1 & 2 & 4 & x & 2
+    \end{vmatrix}.
+    \]
+
+    \item Найдите наибольшее значение определителя матрицы $3 \times 3$,
+     у которой все элементы равны 0 или 1.
+
+\end{enumerate}
+\heart
+    
+\end{document}
