@@ -1,0 +1,159 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+	right=12mm, 
+	bottom=10mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+\setcounter{MaxMatrixCols}{20}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ПМИ ФКН НИУ ВШЭ, 2022/2023 учебный год, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Домашнее задание 4}
+\end{center}
+
+\begin{Task} (Номер 7.)
+Для данной матрицы $A = 
+    \begin{pmatrix}
+     1 & 1 & 0 & 2 \\
+     2 & -1 & -1 & 1 \\
+     -3 & 3 & 2 & 0\\
+    \end{pmatrix}$ найдите такую квадратную матрицу $U$, что матрица $UA$ имеет улучшенный ступенчатый вид, а также выпишите этот вид.
+\end{Task}
+
+\begin{Sol}
+Как мы знаем, приведение матрицы к ул.ступ. виду происходит за счет элементарных преобразований, что по сути происходит через умножение нашей матрицы $A$ на соответствующую элементарную матрицу слева. Поэтому, приводя матрицу $A$ к ул.ступ. виду через цепочку 
+
+\noindent $A \implies A_1 \implies A_2 \implies \dots \implies A_k$, где $A_k$ - ул.ступ. вид матрицы, на самом деле мы имеем выражения $A \implies U_1 \cdot A \implies U_2 U_1 \cdot A \implies \dots \implies U_k \dots U_2 U_1 \cdot A$. В задаче матрица $U$ -- это и есть $ U_k \dots U_2 U_1$. 
+
+Есть способ найти эту матрицу $U$, который лежит на поверхности и которым воспользовалось большинство из вас. Можно привести матрицу А к у.с. виду, запомнить все те преобразования, которые вы над ней совершили, и перемножить соответствующие матрицы этих преобразований. Но умножать несколько матриц друг на друга это муторно и отстойно, есть большой шанс намесить ошибок.
+
+Есть способ полегче. Вспоминаем, что <<умножить элементарную матрицу на нашу матрицу А>> и <<применить к матрице А элементарное преобразование>> -- это одно и то же действие. Только применять построчные преобразования куда легче. Тогда давайте я буду приводить матрицу к у.с. виду через элементарные \textbf{преобразования}, но рядом с ней запишу еще единичную матрицу $E$ -- $(A \mid E)$. И буду применять преобразования вот к такой расширенной матрице. 
+
+К чему это я клоню? Давайте посмотрим, к чему нас эта конструкция приведет. Я хочу применить к матрице А эл. преобразование $\text{Э}_1$ (неважно, какое оно именно). Применяя это преобразование, я делаю что-то со строчками матрицы $A$ и $E$ и получаю расширенную матрицу $(A_1 \mid W)$, $W$ пока нам неизвестна. Но еще раз как мы помним, применить преобразование по строчкам, это все равно что умножить слева на $U_1$ -- $A_1 = U_1 \cdot A$. Но значит, $W$ это не какая-то там матрица непонятная, а это $U_1 \cdot E$. Значит $W=U_1$.
+
+Применяя второе преобразование  $\text{Э}_2$,  я из  $(A_1 \mid U_1)$ получаю  $(A_2 \mid U_2U_1)$. И тд и тп, пока не дойду до  $(A_k \mid U_k \dots U_1)$, где $A_k$ -- у.с. вид. По завершении этого алгоритма я получу справа от черты мою искомую матрицу $U= U_k \dots U_1$, и при этом я вообще не вспотела даже и ни одной матрицы и не умножила, а только делала операции со строчками матриц. Давайте теперь решим в чиселках, чтобы стало понятнее:
+
+\[
+\begin{amatrix}{4}{3}
+1 & 1 & 0 & 2 & 1 & 0 & 0 \\
+2 & -1 & -1 & 1 & 0 & 1 & 0 \\
+-3 & 3 & 2 & 0 & 0 & 0 & 1
+\end{amatrix} \implies_{(2) - 2\cdot (1)}
+\begin{amatrix}{4}{3}
+1 & 1 & 0 & 2 & 1 & 0 & 0 \\
+0 & -3 & -1 & -3 & -2 & 1 & 0 \\
+-3 & 3 & 2 & 0 & 0 & 0 & 1
+\end{amatrix} \implies_{(3)+3\cdot(1)}
+\]
+\[
+\begin{amatrix}{4}{3}
+1 & 1 & 0 & 2 & 1 & 0 & 0 \\
+0 & -3 & -1 & -3 & -2 & 1 & 0 \\
+0 & 6 & 2 & 6 & 3 & 0 & 1
+\end{amatrix} \implies_{(3) + 2 \cdot (2)}
+\begin{amatrix}{4}{3}
+1 & 1 & 0 & 2 & 1 & 0 & 0 \\
+0 & -3 & -1 & -3 & -2 & 1 & 0 \\
+0 & 0 & 0 & 0 & 1 & 2 & 1
+\end{amatrix} \implies_{(2) \cdot \nicefrac{-1}{3}}
+\]
+\[
+\begin{amatrix}{4}{3}
+1 & 1 & 0 & 2 & 1 & 0 & 0 \\
+0 & 1 & \nicefrac{1}{3} & 1 & \nicefrac{2}{3} & -\nicefrac{1}{3} & 0 \\
+0 & 0 & 0 & 0 & 1 & 2 & 1
+\end{amatrix} \implies_{(1) - (2)}
+\begin{amatrix}{4}{3}
+1 & 0 & -\nicefrac{1}{3} & 1 & \nicefrac{1}{3} & \nicefrac{1}{3}& 0 \\
+0 & 1 & \nicefrac{1}{3} & 1 & \nicefrac{2}{3} & -\nicefrac{1}{3} & 0 \\
+0 & 0 & 0 & 0 & 1 & 2 & 1
+\end{amatrix}
+\]
+
+Все, я привела матрицу $A$ к у.с. виду, и справа от черты у меня записана результирующая матрица $U$, такая что $UA==$ у.с. вид.
+
+Важно отметить, что 1) элементарная матрица имеет размер 3 на 3, и матрица $U$ также имеет размер 3 на 3; 2) алгоритм гаусса для приведения матрицы к у.с. виду я применяла именно к матрице до черты; то, что справа от черты стоит, я грубо говоря не трогаю; <<не трогаю>> значит, что я не обращаю на ступеньки после черты, меня интересуют ступеньки только до черты. 
+\end{Sol}
+
+
+\end{document}
