@@ -1,0 +1,137 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 7 (18.10.2022)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Сначала выяснили, какое наибольшее значение может принимать определитель 3-го порядка при условии, что все его элементы равны $\pm 1$.
+
+Затем проговорили поведение определителя при элементарных преобразованиях строк или столбцов, разобрали определители с углом нулей и 
+разложение определителя по строке/столбцу. Обсудили оптимальный алгоритм вычисления определителя с конкретными числовыми элементами: 
+при помощи элементарных преобразований строк/столбцов добиться того, чтобы в какой-либо строке (или каком-либо столбце) остался только 
+один ненулевой элемент, после чего разложить по этой строке (соответственно столбцу) и свести задачу к определителю меньшего порядка.
+
+Разобрали номера П238, П239, П257.
+
+Следующий сюжет -- определитель Вандермонда и явная формула для него. Проговорили, что в задаче нахождения интерполяционного многочлена
+матрица коэффициентов возникающей СЛУ является как раз матрицей Вандермонда, а из неравенства нулю её определителя получается доказательство 
+единственности интерполяционного многочлена: определитель не равен нулю $\implies$ можно умножить обе части СЛУ слева на обратную матрицу.
+
+В конце обсудили вопрос о том, как обратить блочную матрицу вида
+$\begin{pmatrix} E & U \\ 0 & E \end{pmatrix}$,
+где оба блока $E$ квадратны (но могут быть разных размеров). Первый способ нахождения обратной матрицы -- используя элементарные преобразования. 
+Второй способ -- используя блочное умножение матриц.
+\heart
+
+\textbf{Домашнее задание к семинару 8. Дедлайн 31.10.2022}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+
+\begin{enumerate}
+    \item П212, П221, П225
+    \item Как изменится определитель матрицы, если её <<транспонировать>> (то есть отразить) относительно побочной диагонали?
+    \item Как изменится определитель матрицы $A$, если при всех $i,j$ элемент $a_{ij}$ умножить на $c^{i-j}$, где $c \ne 0$ -- некоторое фиксированное число?
+    \item П227, П228
+    \item П229
+    \item П236, П240
+    \item П260, П263
+
+    \item Даны матрицы $A, B \in M_4(\R)$. Известно, что $\det A = 1$ и
+    \[
+    B^{(1)} = 3A^{(3)} - 2A^{(4)}, \;\; B^{(2)} = 2A^{(1)} + 3A^{(2)}, \;\; B^{(3)} = -2A^{(1)} + 2A^{(3)} + A^{(4)}, \;\; B^{(4)} = 2A^{(2)} + 3A^{(4)},
+    \]
+    где $A^{(i)}$ и $B^{(j)}$ обозначают $i$-й столбец матрицы $A$ и $j$-й столбец матрицы $B$ соответственно. Найдите $\det B$.
+
+    \item Используя блочное умножение матриц, найдите матрицу, обратную к матрице с углом нулей $\begin{pmatrix} A & B \\ 0 & C \end{pmatrix}$,
+    где матрицы $A$ и $C$ квадратны и невырожденны (не обязательно одного размера).
+\end{enumerate}
+\heart
+    
+\end{document}
