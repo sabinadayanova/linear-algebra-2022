@@ -1,0 +1,148 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 10 (14.11.2022)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Обсудили понятия линейной зависимости и независимости набора векторов.
+Выяснили, что для пространства $F^n$ вопрос о линейной зависимости/независимости конечного набора векторов сводится к составлению ОСЛУ
+и вопросу о наличии у неё ненулевого решения.
+
+Дальше обсудили, почему  в пространстве всех функций $f: \R \to \R$ система функций 
+
+\noindent $\sin x,  \sin^2 x,  \dots,  \sin^n x$ линейно независима при любом $n$.
+Это можно свести к определителю Вандермонда, выбрав $n$ точек, в которых принимаются попарно различные ненулевые значения.
+Затем поговорили про систему функций $e^{a_1x}, \dots, e^{a_nx}$ при попарно различных $a_1, \dots, a_n$, разобрали два
+разных доказательства линейной независимости (оба сводятся к определителю Вандермонда): один способ -- взять значения в точках 
+$0, 1, \dots, n-1$; второй способ -- последовательно дифференцировать приравненную к нулю линейную комбинацию 
+(достаточно дифференцировать $n-1$ раз) и каждый раз брать значения в точке $0$ (для удобства).
+
+Следующая тема -- базис и размерность векторного пространства.
+Нашли базис и размерность подпространств из номера К35.2(а,б).
+Нашли базис и размерность для пространства симметричных квадратных матриц произвольного порядка.
+
+\heart
+\textbf{Домашнее задание к семинару 11. Дедлайн 21.11.2022}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+
+\begin{enumerate}
+    \item
+П641, 642
+
+\item
+К34.2(а)
+
+\item
+П649, П650
+
+\item
+П652
+
+\item
+П1825 (считать областью определения функций множество $x >0$)
+
+\item
+П1826(а,б)
+
+\item
+П1828
+
+\item
+Найдите базис и размерность для подпространств из номера К35.2(в,г). Ответы обоснуйте.
+
+\item
+Пусть $\R[x]_{\leqslant n}$~--- векторное пространство всех многочленов степени не выше~$n$ с действительными коэффициентами.
+Пусть $U \subseteq \R[x]_{\leqslant n}$~--- подмножество, состоящее из всех многочленов, имеющих корень $c \in \R$.
+Докажите, что $U$ является подпространством, а также найдите его базис и размерность (тоже с доказательством!).
+\end{enumerate}
+\heart
+    
+\end{document}
