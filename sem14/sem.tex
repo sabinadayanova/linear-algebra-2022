@@ -1,0 +1,142 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 14 (12.12.2022)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Обсудили эквивалентное определение ранга матрицы как наибольшего порядка ненулевого минора, решили номер П613.
+
+Следующий сюжет --- алгоритм нахождения ОСЛУ, множеством решений которой является линейная оболочка заданного набора векторов. Алгоритм следующий:
+\begin{enumerate}
+    \item берем эти заданные нам векторы $v_1, \dots, v_m$ и укладываем их по столбцам в матрицу B. Транспонируем матрицу B, получаем $B^T$.
+    \item находим ФСР у ОСЛУ $B^Tx=0$. Обозначим полученные векторы как $a_1, \dots, a_q$.
+    \item кладем полученные векторы по столбцам в матрицу A. Транспонируем ее, получаем $A^T$. Ответ: ОСЛУ $A^Tx=0$.
+\end{enumerate}
+Применили этот алгоритм к векторам $(1, 1, 0, 2)$, $(3, -3, 2, 0), (2, -1, 1, 1)$.
+
+Дальше разобрали описание всех базисов конечномерного векторного пространства в терминах одного базиса.
+Обсудили матрицы перехода и формулу для преобразования координат вектора при замене базиса.
+Если $(e_1,\dots,e_n)$ и $(e'_1,\dots,e'_n)$ --- два базиса одного векторного пространства, то матрица перехода $C$ между ними определяется из соотношения
+\begin{equation} \label{eqn1}
+(e'_1,\dots,e'_n) = (e_1,\dots,e_n)C,
+\end{equation}
+то есть в $j$-м столбце матрицы $C$ стоят координаты вектора $e'_j$ в базисе $(e_1,\dots,e_n)$.
+Если один и тот же вектор $v$ имеет координаты $(x_1,\dots, x_n)$ в базисе $(e_1,\dots, e_n)$ и координаты $(x'_1,\dots, x'_n)$ в 
+базисе $(e'_1,\dots, e'_n)$, то эти наборы координат связаны друг с другом соотношением
+\begin{equation} \label{eqn2}
+\begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} =
+C
+\begin{pmatrix} x'_1 \\ \vdots \\ x_n \end{pmatrix}.
+\end{equation}
+(Обратите внимание, что в формулах (\ref{eqn1}) и (\ref{eqn2}) штрихи стоят с разных сторон от знака равенства!)
+Таким образом, чтобы пересчитать координаты вектора из одного базиса в другой, нужно решить СЛУ.
+
+\heart
+\textbf{Домашнее задание к семинару 15. Дедлайн 9.01.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+
+\begin{enumerate}
+    \item К35.16
+
+    \item К34.10
+
+    \item К34.11
+
+    \item К34.12
+
+    \item К34.13
+
+\end{enumerate}
+\heart
+    
+\end{document}
