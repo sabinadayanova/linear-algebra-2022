@@ -1,0 +1,160 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 16 (17.01.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Поговорили про понятие линейной независимости подпространств и пять эквивалентных условий, определяющих эту линейную независимость.
+Обсудили разложение векторного пространства в прямую сумму подпространств (по определению это означает, что подпространства линейно 
+независимы и в сумме дают всё пространство).
+
+Разобрали частный случай двух подпространств: подпространства $U,W$ векторного пространства $V$ линейно независимы тогда и только тогда, когда 
+$U \cap W = \lbrace 0 \rbrace$ или, эквивалентно, $\dim U + \dim W = \dim (U+W)$ (см. пять эквивалентных условий).
+Отсюда следует, что
+\begin{equation} \label{eq}
+V = U \oplus W \quad \Leftrightarrow \quad U \cap W = \lbrace 0 \rbrace \ \text{ и } \ U + W = V \quad \Leftrightarrow \quad 
+U \cap W = \lbrace 0 \rbrace \ \text{ и } \ \dim U + \dim W = \dim V.
+\end{equation}
+(Последнее условие часто удобнее всего проверять в конкретных задачах.)
+Если есть разложение в прямую сумму $V = U \oplus W$, то тогда всякий вектор $v \in V$ единственным образом представляется в 
+виде суммы $v = u + w$, где $u \in U$ и $w \in W$. В этом случае $u$ называется проекцией вектора $v$ на $U$ вдоль $W$, а $w$ 
+называется проекцией вектора $v$ на $W$ вдоль $U$.
+
+В качестве простейшего примера разобрали разложение пространства $\R^2$ в прямую сумму двух одномерных подпространств, 
+из которых первое --- это ось $Ox$, а второе --- прямая $y = x$. Разобрали графически, как в этом случае находятся обе 
+проекции для произвольного вектора. Аналогично рассмотрели разложение $\R^2$ в прямую сумму оси $Ox$ и другой прямой и 
+обсудили, как устроены обе проекции в этом случае. Подчеркнули, что для одного и того же вектора проекции на одну и ту же 
+ось $Ox$ вдоль разных дополнительных прямых отличаются (вообще говоря).
+
+Если $U = \langle u_1,\dots, u_k \rangle$ и $W = \langle w_1,\dots, w_m\rangle$ --- два подпространства в $F^n$, 
+то разложение $F^n = U \oplus W$ удобно доказывать при помощи одного из условий в (\ref{eq}).
+Чтобы найти проекции заданного вектора $v \in F^n$ на $U$ вдоль $W$ и наоборот, достаточно решить СЛУ 
+$\lambda_1u_1 + \dots \lambda_k u_k + \mu_1 w_1+ \dots + \mu_m w_m = v$ относительно неизвестных $\lambda_i, \mu_j$, 
+и тогда искомые проекции будут равны $\lambda_1u_1 + \dots \lambda_k u_k$ и $\mu_1 w_1+ \dots + \mu_m w_m$.
+
+Разобрали номер 35.18.
+
+Следующий вопрос: верно ли, что если три подпространства $U_1, U_2, U_3$ векторного пространства $V$ удовлетворяют 
+условию $U_1 \cap U_2 = U_1 \cap U_3 = U_2 \cap U_3 = \lbrace 0 \rbrace$, то они линейно независимы? В общем случае неверно: 
+в качестве примера можно взять три различных прямых в $\R^2$.
+
+\heart
+\textbf{Домашнее задание к семинару 16. Дедлайн 24.01.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+
+\begin{enumerate}
+
+    \item К35.19
+
+    \item К35.21
+
+    \item
+    Рассмотрим в пространстве $M_n(\R)$ подпространства $U$ и $W$, где $U$ состоит из всех симметричных матриц, а $W$ --- 
+    из всех строго верхнетреугольных (то есть верхнетреугольных с нулями на диагонали) матриц. Докажите, что $M_n(\R) = U \oplus W$, 
+    и найдите проекцию матрицы из предыдущей задачи на каждое из этих подпространств вдоль другого.
+
+    \item
+    Рассмотрим в пространстве $\R^5$ подпространства $U_1 = \langle (1,1,1,1,0) \rangle$, $U_2 = \langle (0,1,0,0,-1) \rangle$ и $U_3$, 
+    являющееся множеством решений системы
+    \[
+    \begin{cases}
+    x_1 + x_2 = 0,\\
+    x_3 - x_5 = 0.
+    \end{cases}
+    \]
+    Докажите, что $\R^5 = U_1 \oplus U_2 \oplus U_3$.
+
+\end{enumerate}
+\heart
+    
+\end{document}
