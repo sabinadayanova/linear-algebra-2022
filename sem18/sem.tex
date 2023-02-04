@@ -1,0 +1,201 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+\usepackage{bbold} % для ажурных буковок
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem*{proposal}{Предложение}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+    bottom=20mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 18 (31.01.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Обсудили, как задавать линейное отображение:
+
+1) Зафиксировать базис в исходном пространстве $V$: $\mathbb{e} = (e_1, \dots, e_n)$. Выбрать произвольно n векторов из результирующего пространства $W$:
+$w_1, \dots, w_n$. Положить, что $\varphi(e_1) = w_1, \; \dots, \; \varphi(e_n) = w_n$. Получили валидное линейное отображение
+
+2) Зафиксировать базисы в обоих пространствах $\mathbb{e} = (e_1, \dots, e_n)$ в V, $\mathbb{f} = (f_1, \dots, f_m)$ в W. Выбрать произвольную матрицу $A$ размера $m \times n$. 
+Получили валидное линейное отображение, где $A$ -- матрица л.о.
+
+Упомянули основные теоремы про ядро и образ линейного отображения $\varphi \colon V \to W$:
+
+1) $\dim V = \dim \Ker \varphi + \dim \Im \varphi$;
+
+2) если $A$ --- матрица линейного отображения $\varphi$ в некоторой паре базисов, то $\rk A = \dim \Im \varphi$ (это число называется рангом линейного отображения, обозначается как $\rk \varphi$).
+
+Затем обратились к свойству, что если базис ядра дополнить до базиса всего пространства, то образы дополняющих векторов будут образовывать базис в образе.
+Используя это свойство, показали, как выбрать базисы в пространствах $V$ и $W$ таким образом, чтобы матрица отображения $\varphi$ в этих базисах имела диагональный вид с единицами и нулями на диагонали.
+А именно:
+\begin{enumerate}
+    \item Найти базис ядра $(e_1,\dots,e_k)$ и дополнить его до базиса всего $V$ векторами $(e_{k+1},\dots,e_n)$
+    \item Положить $f_1 = \varphi(e_{k+1}),\dots, f_{n-k} = \varphi(e_n)$ и дополнитьсистему $f_1,\dots,f_{n-k}$ до базиса $(f_1,\dots, f_m)$ всего $W$
+    \item Формируя базис $V$, уложим базисные векторы ядра в конец. Тогда искомые базисы -- это $\mathbb e = (e_{k+1},\dots, e_n, e_1 \dots e_k)$ и $\mathbb f = (f_1,\dots, f_m)$. 
+\end{enumerate}
+
+Матрица линейного отображения $\varphi$ в таких базисах будет иметь блочный вид $\begin{pmatrix} E & 0 \\ 0 & 0 \end{pmatrix}$, где $E$ --- единичная матрица порядка $n-k$.
+
+Применили данный алгоритм в примере с прошлого семинара, где линейное отображение в некоторой паре базисов имеет матрицу $\begin{pmatrix} 1 & 2 & 0 & 1 \\ 2 & 1 & 3 & -1 \\ 1 & 1 & 1 & 0\end{pmatrix}$.
+
+Новая тема --- линейные функции.
+Линейная функция на векторном пространстве $V$ над полем $F$--- это просто линейное отображение $V \to F$, где $F$ рассматривается как одномерное векторное пространство над $F$.
+Множество всех линейных функций на векторном пространстве $V$ обозначается через $V^*$ и называется \textit{двойственным} (или \textit{сопряжённым}) к $V$ векторным пространством.
+Затем обсудили, что образом линейной функции $V \to F$ может быть либо $\lbrace 0 \rbrace$ (размерности 0, так получается в случае нулевой функции), либо всё $F$ (размерности 1).
+Отсюда ядро линейной функции может либо совпасть с $V$ (в случае нулевой функции), либо является подпространством размерности $\dim V - 1$.
+Объяснили, почему всякое подпространство $U \subseteq V$ размерности $\dim V - 1$ является ядром некоторой линейной функции на $V$: если $e_1,\dots, e_{n-1}$ --- базис в $U$ и вектор $e_n$ дополняет его до базиса всего $V$, то, задавая линейную функцию $\alpha \in V^*$ на базисных векторах по формулам $\alpha(e_1) = \dots = \alpha(e_{n-1}) = 0$ и $\alpha(e_n)=1$, получаем $\Ker \alpha = U$.
+
+Дальше ввели понятие двойственного базиса.
+Для каждого базиса $(e_1,\dots,e_n)$ пространства $V$ определён двойственный к нему базис $(\varepsilon_1,\dots, \varepsilon_n)$ пространства $V^*$, задаваемый формулами $\varepsilon_i(e_j) = \delta_{ij}$, где $\delta_{ij}$ --- символ Кр\'{о}некера, то есть $\delta_{ij} = 1$ при $i=j$ и $\delta_{ij} = 0$ при $i \ne j$.
+Это можно представлять себе как соотношение $\begin{pmatrix} \varepsilon_1 \\ \vdots \\ \varepsilon_n \end{pmatrix} \begin{pmatrix} e_1 \dots e_n \end{pmatrix} = E$.
+
+Также выяснили, что если два базиса пространства $V$ связаны матрицей перехода $C$ как \newline $(e'_1, \dots, e'_n) = (e_1, \dots, e_n) \; C$, то их двойственные базисы тоже связаны той же самой матрицей $C$ через соотношение $\begin{pmatrix} \varepsilon_1 \\ \vdots \\ \varepsilon_n \end{pmatrix} = C \begin{pmatrix} \varepsilon'_1 \\ \vdots \\ \varepsilon'_n \end{pmatrix}$.
+
+С помощью этих знаний решили следующую задачу (успели только пункт (а)):
+
+Пусть $(e_1,e_2,e_3)$ --- базис трёхмерного векторного пространства $V$, $(\varepsilon_1,\varepsilon_2,\varepsilon_3)$ --- двойственный ему базис пространства $V^*$.
+
+(а)
+Линейные функции $\varepsilon'_1,\varepsilon'_2,\varepsilon'_3 \in V^*$ таковы, что $\varepsilon'_1 = \varepsilon_1 + \varepsilon_2 + \varepsilon_3$, $\varepsilon'_2 = \varepsilon_2 + \varepsilon_3$, $\varepsilon'_3 = \varepsilon_3$. Найти базис пространства $V$, для которого $(\varepsilon'_1, \varepsilon'_2, \varepsilon'_3)$ является двойственным.
+
+(б)
+Найти базис пространства $V^*$, двойственный к базису $(e_1+e_2+e_3,e_2+e_3,e_3)$ пространства $V$.
+
+\heart
+
+\textbf{Домашнее задание к семинару 19. Дедлайн 7.02.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+
+\begin{enumerate}
+
+    \item Докажите, что всякое подпространство конечномерного векторного пространства является ядром некоторого линейного отображения и образом некоторого (возможно, другого) линейного отображения.
+
+    \item Может ли одно и то же подпространство $n$-мерного векторного пространства $V$ ($n \ge 0$) быть одновременно и ядром, и образом одного и того же линейного отображения $V$ в себя? Если да, приведите пример.
+
+    \item
+    Линейное отображение $\varphi \colon \R^4 \to \R^3$ в паре стандартных базисов имеет матрицу $\begin{pmatrix} 1 & 1 & 2 & 2 \\ 2 & 2 & 4 & 4 \\ 3 & 3 & 6 & 6 \end{pmatrix}$.
+    Найдите пару базисов, в которых отображение $\varphi$ имеет диагональную матрицу с единицами и нулями на диагонали (как на семинаре), и выпишите эту матрицу.
+
+    \item
+    Линейное отображение $\varphi \colon \R^4 \to \R^3$ в паре стандартных базисов имеет матрицу $\begin{pmatrix} 1 & 1 & 0 & 2 \\ 3 & -3 & 2 & 0 \\ 2 & -1 & 1 & 1 \end{pmatrix}$.
+    Найдите пару базисов, в которых отображение $\varphi$ имеет диагональную матрицу с единицами и нулями на диагонали (как на семинаре), и выпишите эту матрицу.
+
+    \item
+    Пусть ненулевые линейные функции $\alpha, \beta \in V^*$ таковы, что $\Ker \alpha = \Ker \beta$. Докажите, что тогда $\alpha$ и $\beta$ пропорциональны, то есть $\beta = \lambda \alpha$ для некоторого ненулевого скаляра $\lambda \in F$.
+
+    \item
+    К36.11
+
+
+    \item
+    Пусть $(e_1,e_2,e_3)$ --- некоторый базис трёхмерного векторного пространства $V$, а $(\varepsilon_1, \varepsilon_2, \varepsilon_3)$ --- двойственный ему базис пространства $V^*$.
+
+    (а) Найдите базис пространства $V^*$ (то есть выразите через $\varepsilon_1,\varepsilon_2,\varepsilon_3$), двойственный к базису $(3e_1+e_2-2e_3, 2e_1+e_3,e_1)$ пространства $V$.
+
+    (б) Найдите базис пространства $V$ (то есть выразите через $e_1,e_2,e_3$), для которого двойственным является базис $(\varepsilon_3, 2\varepsilon_1 + \varepsilon_3, 3\varepsilon_1 + \varepsilon_2 - 2\varepsilon_3)$ пространства $V^*$.
+
+    \item
+    Пусть $V = \R[x]_{\leqslant n}$, рассмотрим линейные функции $\varepsilon_0, \varepsilon_1, \dots, \varepsilon_n \in V^*$, где $\varepsilon_i(f) = f^{(i)}(0)$ (верхний индекс $(i)$ обозначает $i$-ю производную).
+    Докажите, что эти функции образуют базис в $V^*$, и найдите базис в $V$, для которого данный базис является двойственным.
+
+    
+    \item
+    К36.9(а)
+
+    \item
+    К36.10(б)
+
+\end{enumerate}
+\heart
+
+
+\end{document}
