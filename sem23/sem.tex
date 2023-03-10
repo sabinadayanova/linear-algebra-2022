@@ -1,0 +1,190 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+\usepackage{bbold} % для ажурных буковок
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+\usepackage{algpseudocode}
+
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pr}{\mathop{\mathrm{pr}}}
+\newcommand{\ort}{\mathop{\mathrm{ort}}}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem*{proposal}{Предложение}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+    bottom=20mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 23 (7.03.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Начали с напоминаний про понятие ортогонального дополнения подмножества в евклидовом пространстве.
+Очень важное свойство: если $\mathbb E$ --- (конечномерное) евклидово пространство, $S \subseteq \mathbb E$ --- подпространство и $S^\perp := \lbrace x \in \mathbb E \mid (x,y) = 0 \ \text{для всех} \ y \in S \rbrace$ --- его ортогональное дополнение, то имеет место разложение в прямую сумму $\mathbb E = S \oplus S^\perp$.
+Значит, всякий вектор $v \in \mathbb E$ единственным образом представляется в виде $v = x + y$, где $x \in S$ и $y \in S^\perp$.
+В этой ситуации вектор $x$ называется \textit{ортогональной проекцией} вектора $v$ на подпространство $S$, а вектор $y$ --- \textit{ортогональной составляющей} вектора $v$ относительно подпространства $S$.
+Обозначения: $x = \mathrm{pr}_S v$, $y = \mathrm{ort}_S v$.
+
+Замечание: в ситуации выше $x = \mathrm{ort}_{S^\perp} v$, $y = \mathrm{pr}_{S^\perp} v$.
+
+Первая формула для вычисления ортогональной проекции: если $e_1, \dots, e_k$ --- ортогональный базис в $S$, то $\mathrm{pr}_Sv = \sum \limits_{i=1}^k \frac{(v,e_i)}{(e_i,e_i)}e_i$.
+
+Вторая формула для вычисления ортогональной проекции: пусть $\mathbb E = \R^n$ со стандартным скалярным произведением, $a_1,\dots,a_k$ --- какой-то базис в $S$ (не обязательно ортогональный!), запишем этот базис в столбцы матрицы $A \in \mathrm{Mat}_{n \times k}(\R)$; тогда $\mathrm{pr}_S v = A(A^TA)^{-1}A^Tv$.
+
+Разобрали пример: $\mathbb E = \R^3$ (со стандартным скалярным произведением), $S = \langle e_1, e_2 \rangle$, где $e_1 = (1,1,1)$ и $e_2 = (0,1,2)$; нашли ортогональную проекцию вектора $v = (1,0,0)$ а $S$ обоими способами.
+
+Дальше разобрали описание всех ортонормированных базисов $n$-мерного евклидова пространства в терминах одного базиса и матриц перехода и ввели понятие ортогональной матрицы.
+Описали все целочисленные ортогональные матрицы порядка $n$ и нашли их количество.
+
+Обсудили QR-разложение матриц и его связь с ортогонализацией Грама-Шмидта. QR-разложение для матрицы $A \in Mat_{m\times n}(\R)$ с линейно независимыми столбцами --
+это такое разложение QR, где $Q \in Mat_{m\times n}(\R)$ имеет ортонормированные столбцы, а $R \in M_n(\R)$ верхнетреугольная. 
+
+Выяснили, что Q получается из матрицы A путем ортогонализации ее столбцов и деления каждого из них на свою длину. Показали нехитрым вычислением, что матрица R выражается как $Q^TA$. Это означает, что
+$R_{ij}$ -- результат скалярного произведения i-ого столбца матрицы Q и j-ого столбца матрицы A.
+
+Далее показали (немного хитрым вычислением), что вышеупомянутые скалярные произведения $(q_i, a_j)$ неявно вычисляются в ходе ортогонализации. Получили следующий алгоритм QR-разложения:
+\begin{algorithmic}
+	\State $f_1 := a_1$
+	\State $q_1 := \nicefrac{f_1}{|f_1|}$
+	\For{$i:= 2 \texttt{ to } n$}
+		\State $f_i:= a_i - \sum_{j=1}^{i-1}(a_i, q_j)q_j$
+        \State \texttt{remember} $(a_i, q_j)$
+		\State $q_i := \nicefrac{f_i}{|f_i|}$
+    \EndFor
+	\State $Q := (q_1 \mid \dots \mid q_n)$
+	\State $R_{ij} := (q_i, a_j) \; \forall i \leq j, R_{ij} := 0 \; \forall i > j$
+\end{algorithmic}
+
+\heart
+
+\textbf{Домашнее задание к семинару 24. Дедлайн 14.03.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина.
+
+В обоих задачниках координаты векторов из $\R^n$ всегда записываются в строчку через запятую, однако нужно помнить, что мы всегда записываем эти координаты в столбец.
+
+
+\begin{enumerate}
+
+
+	\item
+П1370
+
+\item
+П1372
+
+\item
+Рассмотрим евклидово пространство $\R[x]_{\leqslant 4}$ со скалярным произведением $(f,g) = \int\limits_{-1}^1 f(t)g(t)\,dt$.
+Найдите ортогональную проекцию и ортогональную составляющую вектора $x^4$ относительно подпространства $\langle 1,x,x^2,x^3 \rangle$.
+
+\item
+В евклидовом пространстве $\R^4$ (со стандартным скалярным произведением) подпространство $U$ есть множество решений уравнения $x_1 - x_2 + x_3 - x_4 = 0$, а подпространство $W$ --- линейная оболочка векторов $(2,-1,1,-2)$ и $(-1,3,1,3)$.
+Найдите вектор $v \in \R^4$, для которого $\pr_U v = (2, 5, 7, 4)$ и $\pr_W v= (5, 5, 7, 1)$.
+
+\item
+В евклидовом пространстве $\R^4$ (со стандартным скалярным произведением) даны два подпространства $U = \langle u_1,u_2 \rangle$ и $W = \langle w_1,w_2 \rangle$, где $v_1 = (2,-1,2,-1)$, $v_2 = (3,-3,1,1)$, $w_1 = (1,2,-1,2)$, $w_2 = (1,-3,3,-1)$.
+Найдите вектор $v \in \R^4$, для которого $\mathrm{pr}_U v = (9, -12, -1, 8)$ и $\mathrm{ort}_W v = (1, -8, -7, 4)$.
+
+\item Найдите QR-разложение для матрицы 
+$
+\begin{pmatrix}
+	1 & 2  \\ 4 & 5  \\ 7 & 8 
+\end{pmatrix}
+$
+
+\item Тот же вопрос для матрицы
+$
+\begin{pmatrix}
+	2 & 1 & 0 \\ 1 & -1 & 3 \\ 0 & 1 & -2
+\end{pmatrix}
+$
+
+\end{enumerate}
+\heart
+
+
+\end{document}
