@@ -1,0 +1,163 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+\usepackage{bbold} % для ажурных буковок
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+\usepackage{algpseudocode}
+
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pr}{\mathop{\mathrm{pr}}}
+\newcommand{\ort}{\mathop{\mathrm{ort}}}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\newcommand{\Vol}{\mathop{\mathrm{Vol}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem*{proposal}{Предложение}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+    bottom=20mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 25 (21.03.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Повторили смешанное произведение и его свойства. Решили номер КК25.59.
+
+Новая тема --- линейные многообразия в $\R^n$.
+Обсудили связанные с ними понятия --- направляющее подпространство и размерность.
+
+Рассмотрели различные способы задания прямой в $\R^2$, уравнение прямой, проходящей через две заданные точки, способы перехода от одного задания к другому.
+Решили примеры.
+
+Разобрали различные способы задания плоскости в $\R^3$, уравнение плоскости, проходящей через три заданные точки, способы перехода от одного задания к другому.
+Решили примеры.
+
+Рассмотрели различные способы задания прямой в $\R^3$, уравнение прямой, проходящей через две заданные точки, способы перехода от одного задания к другому.
+Решили примеры.
+
+
+
+\heart
+
+\textbf{Домашнее задание к семинару 26. Дедлайн 4.04.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина, с пометкой КК -- Ким-Крицкова.
+
+В обоих задачниках координаты векторов из $\R^n$ всегда записываются в строчку через запятую, однако нужно помнить, что мы всегда записываем эти координаты в столбец.
+
+
+\begin{enumerate}
+
+	
+	\item
+	КК25.41
+	
+	\item
+	КК25.49
+	
+	\item
+	Найдите СЛУ, множеством решений которой будет плоскость в $\R^4$, проходящая через точки $A(-3,4,1,2)$, $B(1,2,3,3)$, $C(5,4,-3,3)$.
+
+	\item
+	КК26.2(2), 26.29(1)
+
+	\item
+	КК26.15(1), 26.16(2)
+
+	\item
+	КК26.47
+
+	\item
+	КК26.50(2,3)
+
+	\item KK31.2(2), KK31.3
+	
+
+\end{enumerate}
+\heart
+
+
+\end{document}
