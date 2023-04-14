@@ -1,0 +1,189 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+\usepackage{bbold} % для ажурных буковок
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+\usepackage{algpseudocode}
+
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pr}{\mathop{\mathrm{pr}}}
+\newcommand{\ort}{\mathop{\mathrm{ort}}}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\newcommand{\Vol}{\mathop{\mathrm{Vol}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem*{proposal}{Предложение}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+    bottom=20mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 26 (11.04.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Разобрали случаи взаимного расположения двух плоскостей, прямой и плоскости, а также двух прямых в $\R^3$.
+
+Дальше доказали, что подмножество в $\R^n$ является линейным многообразием тогда и только тогда, когда вместе с каждой парой своих различных точек оно содержит проходящую через них прямую.
+
+Затем проговорили в общем виде, как решать задачи КК31.21--31.25.
+
+Дальше обсудили формулы для нахождения расстояния от точки до прямой, от точки до плоскости, а также между двумя скрещивающимися прямыми.
+Обсудили углы между двумя прямыми, между прямой и плоскостью, между двумя плоскостями.
+
+Разобрали в общем виде следующую задачу: тетраэдр $ABCD$ задан координатами своих вершин; $AM$ --- медиана грани $ABD$, $BH$ --- высота, опущенная к грани $ACD$; найти угол и расстояние между прямыми $AM$ и $BH$, а также между прямыми $AM$ и $CH$.
+Другой вариант: $AM$ --- биссектриса грани $ABD$, $BH$ --- высота грани $BCD$.
+
+Новая тема --- линейные операторы.
+
+Обсудили определение и матрицу линейного оператора в заданном базисе.
+
+Нашли матрицу оператора
+\begin{equation} 
+x \mapsto [x, e_1+e_2+e_3]
+\end{equation}
+в $\R^3$ в положительно ориентированном ортонормированном базисе $(e_1,e_2,e_3)$.
+
+
+
+\heart
+
+\textbf{Домашнее задание к семинару 27. Дедлайн 19.04.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина, с пометкой КК -- Ким-Крицкова.
+
+В обоих задачниках координаты векторов из $\R^n$ всегда записываются в строчку через запятую, однако нужно помнить, что мы всегда записываем эти координаты в столбец.
+
+
+\begin{enumerate}
+
+	
+	\item
+	КК27.32(2,3)
+
+	\item
+	КК31.18(2,3), КК31.19(2,3)
+
+	\item
+	КК31.13(1,3), КК31.15(1,2). Только определить взаимное расположение (составлять уравнения плоскостей и прочее не нужно).
+
+	\item
+	КК31.22
+
+	\item
+	КК31.23
+
+
+
+\item
+КК29.93
+
+\item
+КК32.35(1,2)
+
+\item
+КК32.37(1,2)
+
+\item
+КК32.28(1,2)
+
+\item
+КК32.30
+
+\item
+КК29.79
+
+\item
+В пространстве $\R^3$ со стандартным скалярным произведением задан тетраэдр с вершинами $A(2,-3,3)$, $B(20,-15,9)$, $C(2,-12,-6)$, $D(-18,10,8)$.
+Пусть $BH$~--- высота грани $ABC$ и  $AM$~--- медиана грани $ACD$.
+Найдите угол и расстояние между прямыми $BH$ и~$AM$.
+
+	
+
+\end{enumerate}
+\heart
+
+
+\end{document}
