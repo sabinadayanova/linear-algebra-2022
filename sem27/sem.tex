@@ -1,0 +1,194 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+\usepackage{bbold} % для ажурных буковок
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+\usepackage{algpseudocode}
+
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\def \CC{\mathbb{C}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pr}{\mathop{\mathrm{pr}}}
+\newcommand{\ort}{\mathop{\mathrm{ort}}}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\newcommand{\Vol}{\mathop{\mathrm{Vol}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem*{proposal}{Предложение}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+    bottom=20mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 27 (19.04.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Продолжили тему линейных операторов.
+
+Обсудили соответствие между линейными операторами и матрицами, формулу действия линейного оператора в координатах, формулу изменения матрицы линейного оператора при замене базиса.
+Обсудили, как изменится матрица линейного оператора при перестановке двух векторов базиса, а также при умножении одного из векторов базиса на ненулевой скаляр.
+
+Определили собственные векторы и собственные значения линейного оператора, спектр, собственные подпространства, характеристический многочлен, а также критерий диагонализуемости.
+
+Для линейного оператора с прошлого семинара посчитали его характеристический многочлен; его единственный корень --- $\lambda = 0$, это единственное собственное значение.
+Для этого собственного значения нашли базис соответствующего собственного подпространства.
+
+Определили алгебраическую и геометрическую кратности собственного значения линейного оператора, обсудили связь между ними.
+
+Сформулировали критерий диагонализуемости: линейный оператор $\varphi$ диагонализуем тогда и только тогда, когда выполнены два условия:
+
+1) характеристический многочлен разлагается на линейные множители;
+
+2) для всякого собственного значения геометрическая кратность равна алгебраической.
+
+Решили номера П1472 и П1473, в каждом случае исследовали диагонализуемость, в П1473 нашли также базис, в котором матрица оператора диагональна, соответствующую матрицу перехода и саму диагональную матрицу.
+
+Проговорили алгоритм проверки оператора на диагонализуемость и нахождения диагонального вида и соответствующей матрицы перехода: пусть $A$ --- матрица линейного оператора $\varphi$ в некотором базисе.
+
+1) вычисляем многочлен $\det(A - tE)$ от переменной $t$ (с точностью до знака это характеристический многочлен оператора $\varphi$) и находим все его корни; это будут в точности все собственные значения оператора $\varphi$;
+убеждаемся, что многочлен раскладывается на линейные множители со своими корнями: $ \chi_{\varphi}(t) = (x - \lambda_1)^{a_1} \dots (x - \lambda_k)^{a_k}$ 
+
+2) для каждого найденного собственного значения $\lambda_i$ находим базис соответствующего ему собственного подпространства $V_{\lambda_i}(\varphi) = \{ v \in V \mid \varphi(v) = \lambda_i \cdot v \}$ --- это ФСР для ОСЛУ $(A-\lambda_i E)x = 0$;
+убеждаемся, что $g_i := dim V_{\lambda_i}(\varphi)$ равно  $a_i$
+
+3) если первые два пункта выполнились, то оператор диагонализуем. В этом случае матрица перехода $C$ будет состоять из координат собственных векторов, которые вы нашли при поиске ФСР. 
+Если собственные векторы (а точнее, их координаты) для $\lambda_i$ есть $\{v_{i1}, \dots , v_{ia_i}\}$, то $C = \left( v_{11} \mid \dots \mid v_{1a_1} \mid  v_{21} \mid \dots \mid v_{2a_2} \mid \dots \mid v_{k1} \mid \dots \mid v_{ka_k} \right)$.
+В новом базисе новая будет диагональная матрица $C^{-1}AC = diag(\lambda_1, \dots, \lambda_1, \lambda_2, \dots, \lambda_2, \dots, \lambda_k, \dots, \lambda_k)$, где каждое $\lambda_i$ встречается по $a_i$ раз.
+
+
+\heart
+
+\textbf{Домашнее задание к семинару 28. Дедлайн 26.04.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина, с пометкой КК -- Ким-Крицкова.
+
+\begin{enumerate}
+
+	
+	\item
+П1448 (здесь и далее  <<линейное преобразование>> $=$ <<линейный оператор>>)
+
+\item
+П1449
+
+\item
+П1452(б)
+
+\item
+П1458
+
+Номера 5)--8) решите с такой формулировкой: найти все собственные значения линейного оператора и базисы всех его собственных подпространств. Проверить, что линейный оператор не диагонализуем.
+
+
+\item
+П1465
+
+\item
+П1466
+
+\item
+П1469
+
+\item \label{matrix}
+матрица $\begin{pmatrix} 3 & -1 & -1 \\ 2 & 0 & -2 \\ -1 & 1 & 1\end{pmatrix}$ (линейный оператор рассматривается над $\R$)
+
+В номерах 9)--11) докажите, что линейный оператор с заданной матрицей диагонализуем; найдите базис, в котором его матрица диагональна, выпишите эту матрицу и матрицу перехода к новому базису.
+
+\item
+П1481 (над $\R$)
+
+\item
+П1483 (над $\R$)
+
+\item 
+матрица из номера \ref{matrix} (над $\CC$)
+
+	
+
+\end{enumerate}
+\heart
+
+
+\end{document}
