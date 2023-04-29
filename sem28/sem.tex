@@ -1,0 +1,174 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+\usepackage{bbold} % для ажурных буковок
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+\usepackage{algpseudocode}
+
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\def \CC{\mathbb{C}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pr}{\mathop{\mathrm{pr}}}
+\newcommand{\ort}{\mathop{\mathrm{ort}}}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\newcommand{\Vol}{\mathop{\mathrm{Vol}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem*{proposal}{Предложение}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+    bottom=20mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 28 (26.04.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Обсудили инвариантные подпространства.
+На примере линейного оператора из домашнего задания показали, как для линейного оператора над $\R$ отыскивать двумерное инвариантное подпространство над $\R$, отвечающее комплексному собственному значению.
+
+Дальше доказали, что если характеристический многочлен линейного оператора разлагается на линейные множители, то существует базис исходного пространства, в котором матрица линейного оператора имеет верхнетреугольный вид.
+
+Дальше сформулировали теорему о жордановой нормальной форме.
+
+Новая тема: сопряжённые линейные отображения, сопряжённые линейные операторы, самосопряжённые линейные операторы в евклидовых пространствах.
+Обсудили, что если $A$ --- матрица линейного отображения в паре ортонормированных базисов $(\mathbb e, \mathbb f)$, то матрицей сопряжённого линейного отображения в паре базисов $(\mathbb f, \mathbb e)$ будет $A^T$.
+Аналогично, если $A$ --- матрица линейного оператора в каком-то ортонормированном базисе, то матрицей сопряжённого линейного оператора в том же базисе будет $A^T$.
+В частности, линейный оператор самосопряжён тогда и только тогда, когда его матрица в ортонормированном базисе симметрична.
+
+Дальше сформулировали основную теорему о самосопряжённых линейных операторах:
+
+Пусть $\varphi$ --- самосопряжённый линейный оператор в евклидовом пространстве $\mathbb E$.
+Тогда:
+
+1) существует ортонормированный базис в $\mathbb E$, состоящий из собственных векторов оператора $\varphi$ (в частности, $\varphi$ диагонализуем над $\R$);
+
+2) собственные подпространства оператора $\varphi$, отвечающие различным собственным значениям, попарно ортогональны.
+
+Разобрали пример с самосопряжённым оператором, заданным в некотором ортонормированном базисе матрицей $\begin{pmatrix} 1 & 1 & 1\\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{pmatrix}$: нашли ортонормированный базис, в котором матрица этого оператора диагональна.
+
+\heart
+
+\textbf{Домашнее задание к семинару 29. Дедлайн 10.05.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина, с пометкой КК -- Ким-Крицкова.
+
+\begin{enumerate}
+
+	
+	\item
+	П1519
+	
+	
+	
+	\item
+	К40.14 (характеристические числа матрицы --- это корни её характеристического многочлена, то есть собственные значения)
+
+	\item
+	Докажите, что операция перехода к сопряжённому линейному отображению в евклидовых пространствах обладает свойствами из номера К44.1(а,б,г,д) (в пункте (г) игнорировать черту над $\lambda$).
+
+	\item
+	Пусть $\varphi \colon \mathbb E \to \mathbb E'$ --- линейное отображение евклидовых пространств.
+	Докажите, что \\
+	\[
+	\Ker \varphi^* = (\Im \varphi)^\perp \ \text{ и } \ \Im \varphi^* = (\Ker \varphi)^\perp.
+	\]
+
+	\item
+	К44.4 (здесь речь именно о сопряжённом операторе, а не отображении!) + указать геометрический смысл сопряжённого оператора
+
+	\item
+	П1585
+
+	\item
+	П1586
+
+
+
+
+\end{enumerate}
+\heart
+
+
+\end{document}
