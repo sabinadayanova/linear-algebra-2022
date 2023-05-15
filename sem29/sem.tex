@@ -1,0 +1,191 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+\usepackage{bbold} % для ажурных буковок
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+\usepackage{algpseudocode}
+
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\def \CC{\mathbb{C}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pr}{\mathop{\mathrm{pr}}}
+\newcommand{\ort}{\mathop{\mathrm{ort}}}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\newcommand{\Vol}{\mathop{\mathrm{Vol}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem*{proposal}{Предложение}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+    bottom=20mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 29 (10.05.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Начали семинар с теоремы о приведении квадратичной формы к главным осям:
+
+Для всякой квадратичной формы $Q$ в евклидовом пространстве существует ортонормированный базис, в котором $Q$ имеет канонический вид
+ $Q(x) = \lambda_1x_1^2 + \lambda_2x_2^2 + \ldots + \lambda_n x_n^2$; причём числа $\lambda_1, \lambda_2, \ldots, \lambda_n$ определены 
+ однозначно с точностью до перестановки (они являются собственными значениями самосопряжённого линейного оператора, который в ортонормированном 
+ базисе имеет такую же матрицу, как и данная квадратичная форма).
+
+Проговорили, что задача приведения квадратичной формы к главным осям эквивалентна задаче диагонализации (в ортонормированном базисе) самосопряжённого оператора и потому решается так же (а это мы разбирали на прошлом семинаре).
+Подробно разобрали номер П1251.
+
+Новая тема: ортогональные операторы.
+Сформулировали определение и упомянули ещё 5 эквивалентных условий. Вывели, что среди действительных собственных значений ортогонального оператора могут быть только $1$ или $-1$.
+Обсудили, какие бывают линейные операторы, которые одновременно являются ортогональными и самосопряжёнными.
+
+Дальше проговорили теорему о каноническом виде ортогонального оператора.
+Важный частный случай этой теоремы --- описание всех ортогональных операторов в трёхмерном евклидовом пространстве: всякий такой оператор --- это либо поворот вокруг некоторой прямой, либо  <<зеркальный поворот>> вокруг некоторой прямой.
+Обсудили алгоритм нахождения ортонормированного базиса, в котором матрица ортогонального оператора $\varphi$ в $\R^3$ имеет канонический вид.
+Если $A$ --- матрица данного линейного оператора в исходном ортонормированном базисе, то поступать можно так:
+
+(I) Если $A = A^T$, то оператор самосопряжён, и к нему можно применить известный алгоритм для самосопряжённого оператора. (Единственный нюанс --- тут не надо считать характеристический многочлен, поскольку его корни мы и так знаем: это $1$ и $-1$.)
+
+(II) Если $A \ne A^T$, то оператор не самосопряжён, поэтому в каноническом виде один из блоков обязательно будет матрицей $\begin{pmatrix} \cos \alpha & -\sin \alpha \\ \sin \alpha & \cos \alpha \end{pmatrix}$ поворота на угол $\alpha$, не кратный $\pi k$. Вторым из блоков будет $\pm 1$, поэтому одно из чисел $1$ или $-1$ будет собственным значением для $\varphi$. Дальше делаем следующее.
+
+1) Рассматривая матрицу $A - \lambda E$ при $\lambda = 1, -1$, находим то значение $\lambda = \lambda_0 \in \lbrace \pm 1 \rbrace$, которое будет собственным для $\varphi$, а также соответствующий собственный вектор $e_3$ единичной длины.
+
+2) Выбираем любой ортонормированный базис $(e_1,e_2)$ в $e_3^\perp$, тогда $(e_1,e_2,e_3)$ будет ортонормированным базисом, в котором $\varphi$ имеет канонический вид. Осталось только найти этот вид.
+
+3) Если $\alpha$ --- угол поворота для $\varphi$, то $\varphi(e_1) = \cos \alpha \cdot e_1 + \sin \alpha \cdot e_2$ и тогда $\cos \alpha$ и $\sin \alpha$ находятся по формулам $\cos \alpha = (\varphi(e_1), e_1)$ и $\sin \alpha = (\varphi(e_1), e_2)$.
+
+
+Полностью осуществили данный алгоритм для линейного оператора из номера П1574.
+
+\heart
+
+\textbf{Домашнее задание к семинару 30. Дедлайн 16.05.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина, с пометкой КК -- Ким-Крицкова.
+
+\begin{enumerate}
+
+	
+	\item
+	П1243
+	
+	В следующих трёх заданиях явно выписывайте искомую ортогональную замену координат (выражение старых координат через новые).
+	
+	\item
+	П1248
+	
+	\item
+	П1254
+	
+	\item
+	П1259
+	
+	\item
+	П1564
+	
+	\item
+	П1571
+	
+	\item
+	П1572
+	
+	\item
+	К46.6(к)
+	
+	\item
+	Ортогональный линейный оператор $\varphi \colon \R^3 \to \R^3$ имеет в стандартном базисе матрицу
+	\[
+	\frac13 \begin{pmatrix} -2 & -2 & 1 \\ -2 & 1 & -2 \\ -1 & 2 & 2 \end{pmatrix}.
+	\]
+	Найдите ортонормированный базис, в котором матрица оператора $\varphi$ имеет каноничесакий вид, и выпишите эту матрицу. Укажите ось и угол поворота, определяемого оператором $\varphi$.
+	
+	
+
+
+
+
+\end{enumerate}
+\heart
+
+
+\end{document}
