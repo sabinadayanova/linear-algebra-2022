@@ -1,0 +1,222 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+\usepackage{bbold} % для ажурных буковок
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+\usepackage{algpseudocode}
+
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\def \CC{\mathbb{C}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pr}{\mathop{\mathrm{pr}}}
+\newcommand{\ort}{\mathop{\mathrm{ort}}}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\newcommand{\Vol}{\mathop{\mathrm{Vol}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem*{proposal}{Предложение}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+    bottom=20mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 30 (16.05.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Новая тема: сингулярное разложение матриц.
+Всякая матрица $A \in \mathrm{Mat}_{m\times n} (\R)$ представима в виде $A = U \Sigma V^T$, где $U \in \mathrm M_m(\R)$, $V \in \mathrm M_n(\R)$ --- 
+ортогональные матрицы, $\Sigma \in \mathrm{Mat}_{m \times n}(\R)$ --- диагональная матрица с числами $\sigma_1 \geqslant \sigma_2 \geqslant \ldots \geqslant \sigma_r > 0$ 
+на диагонали, где $r = \rk A$. Более того, числа $\sigma_1, \ldots, \sigma_r$ определены однозначно. \textit{Усечённое сингулярное разложение} матрицы $A$ получается из 
+обычного  <<обрезанием>> матрицы $\Sigma$ до квадратной размера $k \times k$, где $k = \min (m,n)$, при этом у одной из матриц $U,V$ (у которой размер больше) 
+нужно оставить только первые $k$ столбцов, выкинув остальные. 
+
+Дальше исходя из вида сингулярного разложения $A = U\Sigma V^T$ вывели \textbf{алгоритм нахождения сингулярного разложения:}
+
+\textbf{I способ}:
+
+1) Вычисляем матрицу $A^TA$ и находим все её ненулевые собственные значения $s_1, s_2, \ldots, s_r$ (если какое-то из этих значений имеет кратность $\geqslant 2$, 
+то записываем его столько раз, какова кратность). Они все автоматически будут положительны; перенумеровываем их так, чтобы $s_1 \geqslant s_2 \geqslant \ldots \geqslant s_r > 0$. 
+Полагаем $\sigma_i = \sqrt{s_i}$.
+
+2) Находим ортонормированную систему из собственных векторов $v_1,\ldots,v_r$ (достаточно найти ортонормированный базис в каждом из собственных подпространств, 
+после чего занумеровать эти векторы в соответствии с их собственными значениями, то есть чтобы выполнялось условие $A^TAv_i = s_iv_i$ для всех $i = 1,\ldots, r$).
+
+3) Для каждого $i = 1,\ldots, r$ вычисляем $u_i = \frac1{\sigma_i}Av_i$; полученная система векторов $u_1,\ldots, u_r$ автоматически будет ортонормированна.
+
+4) Дополняем обе системы $v_1,\ldots, v_r$ и $u_1,\ldots, u_r$ до ортонормированных базисов (в случае полного сингулярного разложения) или до ортонормированных систем 
+$v_1,\ldots, v_k$ и $u_1,\ldots, u_k$ (в случае усечённого сингулярного разложения).
+
+5) Составляем из чисел $\sigma_1,\ldots, \sigma_r$ матрицу $\Sigma$, а полученные на предыдущем шаге векторы $u_1,u_2, \ldots$ и $v_1,v_2,\ldots$ записываем в столбцы матриц $U$ и $V$ соответственно.
+
+
+\textbf{II способ} фактически является I способом, применённым к матрице $A^T$: 
+
+1) Вычисляем матрицу $AA^T$ и находим все её ненулевые собственные значения $s_1, s_2, \ldots, s_r$ (если какое-то из этих значений имеет кратность $\geqslant 2$, 
+то записываем его столько раз, какова кратность). Они все автоматически будут положительны; перенумеровываем их так, чтобы $s_1 \geqslant s_2 \geqslant \ldots \geqslant s_r > 0$. 
+Полагаем $\sigma_i = \sqrt{s_i}$.
+
+2) Находим ортонормированную систему из собственных векторов $u_1,\ldots,u_r$ (достаточно найти ортонормированный базис в каждом из собственных подпространств, 
+после чего занумеровать эти векторы так, чтобы выполнялось условие $AA^Tu_i = s_iu_i$ для всех $i = 1,\ldots, r$).
+
+3) Для каждого $i = 1,\ldots, r$ вычисляем $v_i = \frac1{\sigma_i}A^Tu_i$; полученная система векторов $v_1,\ldots, v_r$ автоматически будет ортонормированна.
+
+4) Дополняем обе системы $u_1,\ldots, u_r$ и $v_1,\ldots, v_r$ до ортонормированных базисов (в случае полного сингулярного разложения) или до ортонормированных систем 
+$u_1,\ldots, u_k$ и $v_1,\ldots, v_k$ (в случае усечённого сингулярного разложения).
+
+5) Составляем из чисел $\sigma_1,\ldots, \sigma_r$ матрицу $\Sigma$, а полученные на предыдущем шаге векторы $u_1,u_2, \ldots$ и $v_1,v_2,\ldots$ записываем в столбцы матриц $U$ и $V$ соответственно.
+
+В качестве примера нашли полное и усечённое сингулярное разложение матрицы $A = \begin{pmatrix} 3 & 2 & 4 \\ 1 & 4 & -2 \end{pmatrix}$, используя II способ.
+
+Дальше обсудили разложение матрицы в сумму компонент ранга $1$, связанное с её сингулярным разложением.
+
+Поговорили о приложениях сингулярного разложения.
+
+Теорема о низкоранговом приближении:
+
+Пусть $A = U \Sigma V^T$ --- сингулярное разложение матрицы $A$ ранга $r$.
+Для каждого значения $k < r$ обозначим через $\Sigma_k$ матрицу, получаемую из $\Sigma$ заменой диагональных элементов $\sigma_{k+1}, \ldots, \sigma_r$ нулями.
+Тогда среди всех матриц $B$ (того же размера) ранга не выше $k$ минимум величины $||A-B||$ достигается при $B = U\Sigma_kV^T$.
+
+Воспользовавшись сингулярным разложением матрицы $A = \begin{pmatrix} 3 & 2 & 4 \\ 1 & 4 & -2 \end{pmatrix}$, нашли для неё наилучшее по норме Фробениуса приближение $B$ ранга $1$ и величину $||A-B||$, то есть расстояние от $A$ до $B$ по норме Фробениуса.
+
+
+\heart
+
+\textbf{Домашнее задание к семинару 31. Дедлайн 24.05.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина, с пометкой КК -- Ким-Крицкова.
+
+\begin{enumerate}
+
+	
+	\item
+Найдите полное и усечённое сингулярные разложения матрицы $A = \begin{pmatrix} 3 & 2 & 4 \\ 1 & 4 & -2 \end{pmatrix}$ с семинара, используя I способ. Сравните потраченные усилия в I и II способах.
+
+\item
+Найдите полное и усечённое сингулярные разложения матрицы
+$
+\begin{pmatrix}
+-5 & 3 & 5 \\
+5 & -1 & 5
+\end{pmatrix}.
+$
+
+\item
+Найдите усечённое сингулярное разложение вектора-строки.
+
+\item
+Пусть $A \in \mathrm{Mat}_{n \times 2} (\R)$ и $a_1 = A^{(1)}$, $a_2 = A^{(2)}$ (то есть $a_1,a_2$ --- соответственно первый и второй столбцы матрицы $A$).
+Пусть $\sigma_1 \geqslant \sigma_2$ --- первое и второе сингулярные значения матрицы $A$.
+Докажите, что $\sigma_1 \geqslant |a_1| \geqslant \sigma_2$ и $\sigma_1 \geqslant |a_2| \geqslant \sigma_2$.
+
+
+\item
+Пусть $\sigma_1,\ldots, \sigma_m$ --- сингулярные значения матрицы $A \in \mathrm{Mat}_{m \times n}(\R)$, где $m \leqslant n$.
+Найдите все сингулярные значения матрицы $(A | E) \in \mathrm{Mat}_{m \times (n+m)}(\R)$.
+
+\item
+Найдите полное (оно же будет усечённым) сингулярное разложение матрицы $A = \begin{pmatrix} - 2 & 6 \\ 9 & -2 \end{pmatrix}$. Также найдите матрицу $B$ ранга 1, наиболее близкую к $A$ по норме Фробениуса, и вычислите $||A - B||$.
+
+\item
+Найдите усечённое сингулярное разложение матрицы $A = \begin{pmatrix} 6 & 1 & 2 \\ 2 & 2 & -6 \end{pmatrix}$.
+Также найдите матрицу $B$ ранга 1, наиболее близкую к $A$ по норме Фробениуса, и вычислите $||A - B||$.
+
+\item
+Найдите полное (оно же будет усечённым) сингулярное разложение матрицы $\begin{pmatrix} 11 & -8 & 1 \\ -8 & 2 & 8 \\ 1 & 8 & 11 \end{pmatrix}$.
+Также найдите матрицы $B$ и $C$ рангов $2$ и $1$ соответственно, наиболее близкие к $A$ по норме Фробениуса, и вычислите $||A-B||$, $||A-C||$.
+
+\item
+Приведите пример матрицы $A \in \mathrm{Mat}_{2\times 3}(\R)$ ранга $2$, для которой ближайшей по норме Фробениуса матрицей ранга $1$ будет матрица
+$B = \begin{pmatrix}
+3 & 6 & -3 \\
+-1 & -2 & 1
+\end{pmatrix}$.
+
+
+\end{enumerate}
+\heart
+
+
+\end{document}
