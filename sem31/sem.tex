@@ -1,0 +1,160 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+\usepackage{bbold} % для ажурных буковок
+
+\pagestyle{empty} \textwidth=19.0cm \oddsidemargin=-1.3cm
+\textheight=26cm \topmargin=-3.0cm
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+\usepackage{algpseudocode}
+
+
+% Операторы
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\def \CC{\mathbb{C}}
+\newcommand{\rk}{\operatorname{\mathrm{rk}}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pr}{\mathop{\mathrm{pr}}}
+\newcommand{\ort}{\mathop{\mathrm{ort}}}
+\newcommand{\Ker}{\mathop{\mathrm{Ker}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\newcommand{\Vol}{\mathop{\mathrm{Vol}}}
+
+\def \a{\alpha}
+\def \be{\beta}
+
+% Другое
+
+\newcommand{\const}{\mathrm{const}}
+\theoremstyle{definition}
+\newtheorem*{proposal}{Предложение}
+\newtheorem{Task}{Задача}
+%\newtheorem*{Taskn}{Задача {#1}}
+\newtheorem*{Sol}{Решение}
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\heart}{\begin{center}
+\textcolor{RoyalPurple}{\ensuremath\heartsuit} 
+\end{center}}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+% \setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=12mm,
+	top=10mm,
+    bottom=20mm,
+	right=12mm}
+% \setlength{\parindent}{0cm} % Отступ (красная строка)
+% \linespread{1.1} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+\usepackage{enumitem}
+
+%% Оформление
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+\newenvironment{amatrix}[2]{%
+    \left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}
+}{%
+    \end{array}\right)
+}
+
+\begin{document}
+
+\begin{center}
+\small
+\noindent\makebox[\textwidth]{Линейная алгебра и геометрия \hfill ФКН НИУ ВШЭ, 2022/2023 учебный год, 1-й курс ОП ПМИ, группа 2212}
+\end{center}
+
+\large
+
+\begin{center}
+\textbf{Семинар 31 (24.05.2023)}
+\end{center}
+
+\textbf{Краткое содержание}
+
+Тема занятия~--- прямоугольные декартовы системы координат, кривые второго порядка в $\R^2$ и поверхности второго порядка в~$\R^3$, 
+теорема о приведении их уравнений к каноническому виду, основные канонические виды и названия соответствующих кривых и поверхностей.
+
+Разобрали номера КК35.24(2,7) и КК35.27(2).
+
+
+
+\heart
+
+\textbf{Домашнее задание к семинару 32. Дедлайн 31.05.2023}
+
+Номера с пометкой П даны по задачнику Проскурякова, с пометкой К -- Кострикина, с пометкой КК -- Ким-Крицкова.
+
+В заданиях 1)--8) требуется привести уравнение кривой/поверхности к каноничекому виду в прямоугольной декартовой системе координат и определить её тип.
+
+\begin{enumerate}
+
+	
+	\item
+	КК35.24(1,3,5,10)
+	
+	\item
+	КК35.27(6)
+	
+	\item
+	КК35.27(11)
+	
+	\item
+	КК35.27(12)
+	
+	\item
+	КК38.10(1,2,3)
+	
+	\item
+	КК38.12(6)
+	
+	\item
+	КК38.12(8)
+	
+	\item
+	$8x^2-28xy-13y^2 -z^2-44x+2y-37=0$
+	
+	\item (бонус)
+	Докажите, что через каждую точку однополостного гиперболоида проходят ровно две прямые, целиком лежащие на нём.
+	
+
+
+
+\end{enumerate}
+\heart
+
+
+\end{document}
